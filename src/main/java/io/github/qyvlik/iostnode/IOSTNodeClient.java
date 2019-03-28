@@ -7,6 +7,7 @@ import io.github.qyvlik.iostnode.response.account.Account;
 import io.github.qyvlik.iostnode.response.account.TokenBalance;
 import io.github.qyvlik.iostnode.response.block.Block;
 import io.github.qyvlik.iostnode.response.bonus.CandidateBonus;
+import io.github.qyvlik.iostnode.response.bonus.VoterBonus;
 import io.github.qyvlik.iostnode.response.contract.Contract;
 import io.github.qyvlik.iostnode.response.info.*;
 import io.github.qyvlik.iostnode.response.storage.ContractStorage;
@@ -511,6 +512,40 @@ public class IOSTNodeClient {
             logger.error("getCandidateBonus {} failure :{} ", name, e.getMessage());
         }
         return null;
+    }
+
+    /**
+     * 获取投票者可领取的投票收益
+     *
+     * @param name           投票者账户名
+     * @param byLongestChain true - 从最长链得到数据，false - 从不可逆块得到数据
+     * @return VoterBonus
+     */
+    public VoterBonus getVoterBonus(String name, boolean byLongestChain) {
+        if (StringUtils.isBlank(iostNodeHost)) {
+            throw new RuntimeException("getVoterBonus failure : iostNodeHost is empty, name:" + name);
+        }
+        if (restTemplate == null) {
+            throw new RuntimeException("getVoterBonus failure : restTemplate is null, name:" + name);
+        }
+        if (StringUtils.isBlank(name)) {
+            throw new RuntimeException("getVoterBonus failure : name is empty");
+        }
+        String url = "";
+        if (iostNodeHost.endsWith("/")) {
+            url = iostNodeHost + "getVoterBonus/" + name + "/" + byLongestChain;
+        } else {
+            url = iostNodeHost + "/getVoterBonus/" + name + "/" + byLongestChain;
+        }
+
+        try {
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            return JSON.parseObject(response.getBody()).toJavaObject(VoterBonus.class);
+        } catch (Exception e) {
+            logger.error("getVoterBonus {} failure :{} ", name, e.getMessage());
+        }
+        return null;
+
     }
 
     /**

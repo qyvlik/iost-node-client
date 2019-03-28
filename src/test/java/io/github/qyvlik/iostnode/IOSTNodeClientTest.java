@@ -6,6 +6,7 @@ import io.github.qyvlik.iostnode.response.account.Account;
 import io.github.qyvlik.iostnode.response.account.TokenBalance;
 import io.github.qyvlik.iostnode.response.block.Block;
 import io.github.qyvlik.iostnode.response.bonus.CandidateBonus;
+import io.github.qyvlik.iostnode.response.bonus.VoterBonus;
 import io.github.qyvlik.iostnode.response.contract.Contract;
 import io.github.qyvlik.iostnode.response.info.*;
 import io.github.qyvlik.iostnode.response.storage.ContractStorage;
@@ -248,10 +249,22 @@ public class IOSTNodeClientTest {
 
         CandidateBonus response = iostNodeClient.getCandidateBonus(account, byLongestChain);
 
-        logger.info("getTokenInfo account:{} byLongestChain:{} response:{}", account, byLongestChain, response);
+        logger.info("getCandidateBonus account:{} byLongestChain:{} response:{}", account, byLongestChain, response);
     }
 
+    @Test
+    public void getVoterBonus() throws Exception {
+        IOSTNodeClient iostNodeClient = new IOSTNodeClient();
+        iostNodeClient.setRestTemplate(restTemplate);
+        iostNodeClient.setIostNodeHost(iostNodeHost);
 
+        String account = "admin";
+        boolean byLongestChain = true;
+
+        VoterBonus response = iostNodeClient.getVoterBonus(account, byLongestChain);
+
+        logger.info("getVoterBonus account:{} byLongestChain:{} response:{}", account, byLongestChain, response);
+    }
 
     @Test
     public void getTokenInfo() throws Exception {

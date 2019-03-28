@@ -12,7 +12,7 @@
 
     <groupId>io.github.qyvlik</groupId>
     <artifactId>iost-node-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>iost-node-client</name>
     <description>iost-node-client</description>
     <url>https://github.com/qyvlik/iost-node-client</url>

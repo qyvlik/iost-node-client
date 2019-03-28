@@ -8,7 +8,7 @@ iost-node-client
 <dependency>
     <groupId>io.github.qyvlik</groupId>
     <artifactId>iost-node-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 

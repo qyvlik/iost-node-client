@@ -5,6 +5,7 @@ import io.github.qyvlik.iostnode.request.GetContractStorageRequest;
 import io.github.qyvlik.iostnode.response.account.Account;
 import io.github.qyvlik.iostnode.response.account.TokenBalance;
 import io.github.qyvlik.iostnode.response.block.Block;
+import io.github.qyvlik.iostnode.response.contract.Contract;
 import io.github.qyvlik.iostnode.response.info.*;
 import io.github.qyvlik.iostnode.response.storage.ContractStorage;
 import io.github.qyvlik.iostnode.response.storage.ContractStorageFields;
@@ -16,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 public class IOSTNodeClientTest {
-
 
     RestTemplate restTemplate = new RestTemplate();
     String iostNodeHost = "http://13.52.105.102:30001";         // 测试链, testnet
@@ -182,6 +182,20 @@ public class IOSTNodeClientTest {
 
         logger.info("getTokenBalance account:{} token:{} byLongestChain:{} response:{}",
                 account, token, byLongestChain, response);
+    }
+
+    @Test
+    public void getContract() throws Exception {
+        IOSTNodeClient iostNodeClient = new IOSTNodeClient();
+        iostNodeClient.setRestTemplate(restTemplate);
+        iostNodeClient.setIostNodeHost(iostNodeHost);
+
+        String id = "token.iost";
+        boolean byLongestChain = true;
+
+        Contract response = iostNodeClient.getContract(id, byLongestChain);
+        logger.info("getContract id:{} byLongestChain:{} response:{}",
+                id, byLongestChain, response);
     }
 
     @Test

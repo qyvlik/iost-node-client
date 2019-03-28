@@ -6,6 +6,7 @@ import io.github.qyvlik.iostnode.request.GetContractStorageRequest;
 import io.github.qyvlik.iostnode.response.account.Account;
 import io.github.qyvlik.iostnode.response.account.TokenBalance;
 import io.github.qyvlik.iostnode.response.block.Block;
+import io.github.qyvlik.iostnode.response.contract.Contract;
 import io.github.qyvlik.iostnode.response.info.*;
 import io.github.qyvlik.iostnode.response.storage.ContractStorage;
 import io.github.qyvlik.iostnode.response.storage.ContractStorageFields;
@@ -365,6 +366,39 @@ public class IOSTNodeClient {
             return JSON.parseObject(response.getBody()).toJavaObject(TokenBalance.class);
         } catch (Exception e) {
             logger.error("getTokenBalance {} failure :{} ", account, e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * 通过合约ID获取合约数据
+     *
+     * @param id             合约的ID
+     * @param byLongestChain true - 从最长链得到数据，false - 从不可逆块得到数据
+     * @return Contract
+     */
+    public Contract getContract(String id, boolean byLongestChain) {
+        if (StringUtils.isBlank(iostNodeHost)) {
+            throw new RuntimeException("getContract failure : iostNodeHost is empty, id:" + id);
+        }
+        if (restTemplate == null) {
+            throw new RuntimeException("getContract failure : restTemplate is null, id:" + id);
+        }
+        if (StringUtils.isBlank(id)) {
+            throw new RuntimeException("getContract failure : id is empty");
+        }
+
+        String url = "";
+        if (iostNodeHost.endsWith("/")) {
+            url = iostNodeHost + "getContract/" + id + "/" + byLongestChain;
+        } else {
+            url = iostNodeHost + "/getContract/" + id + "/" + byLongestChain;
+        }
+        try {
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            return JSON.parseObject(response.getBody()).toJavaObject(Contract.class);
+        } catch (Exception e) {
+            logger.error("getContract {} failure :{} ", id, e.getMessage());
         }
         return null;
     }

@@ -6,6 +6,7 @@ import io.github.qyvlik.iostnode.request.GetContractStorageRequest;
 import io.github.qyvlik.iostnode.response.account.Account;
 import io.github.qyvlik.iostnode.response.account.TokenBalance;
 import io.github.qyvlik.iostnode.response.block.Block;
+import io.github.qyvlik.iostnode.response.bonus.CandidateBonus;
 import io.github.qyvlik.iostnode.response.contract.Contract;
 import io.github.qyvlik.iostnode.response.info.*;
 import io.github.qyvlik.iostnode.response.storage.ContractStorage;
@@ -476,6 +477,39 @@ public class IOSTNodeClient {
             logger.error("getContractStorageFields failure :{} ", e.getMessage());
         }
 
+        return null;
+    }
+
+    /**
+     * 获取节点可领取的投票收益
+     *
+     * @param name           节点账户名
+     * @param byLongestChain true - 从最长链得到数据，false - 从不可逆块得到数据
+     * @return CandidateBonus
+     */
+    public CandidateBonus getCandidateBonus(String name, boolean byLongestChain) {
+        if (StringUtils.isBlank(iostNodeHost)) {
+            throw new RuntimeException("getCandidateBonus failure : iostNodeHost is empty, name:" + name);
+        }
+        if (restTemplate == null) {
+            throw new RuntimeException("getCandidateBonus failure : restTemplate is null, name:" + name);
+        }
+        if (StringUtils.isBlank(name)) {
+            throw new RuntimeException("getCandidateBonus failure : name is empty");
+        }
+        String url = "";
+        if (iostNodeHost.endsWith("/")) {
+            url = iostNodeHost + "getCandidateBonus/" + name + "/" + byLongestChain;
+        } else {
+            url = iostNodeHost + "/getCandidateBonus/" + name + "/" + byLongestChain;
+        }
+
+        try {
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            return JSON.parseObject(response.getBody()).toJavaObject(CandidateBonus.class);
+        } catch (Exception e) {
+            logger.error("getCandidateBonus {} failure :{} ", name, e.getMessage());
+        }
         return null;
     }
 

@@ -5,6 +5,7 @@ import io.github.qyvlik.iostnode.request.GetContractStorageRequest;
 import io.github.qyvlik.iostnode.response.account.Account;
 import io.github.qyvlik.iostnode.response.account.TokenBalance;
 import io.github.qyvlik.iostnode.response.block.Block;
+import io.github.qyvlik.iostnode.response.bonus.CandidateBonus;
 import io.github.qyvlik.iostnode.response.contract.Contract;
 import io.github.qyvlik.iostnode.response.info.*;
 import io.github.qyvlik.iostnode.response.storage.ContractStorage;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 public class IOSTNodeClientTest {
+
 
     RestTemplate restTemplate = new RestTemplate();
     String iostNodeHost = "http://13.52.105.102:30001";         // 测试链, testnet
@@ -236,16 +238,32 @@ public class IOSTNodeClientTest {
     }
 
     @Test
+    public void getCandidateBonus() throws Exception {
+        IOSTNodeClient iostNodeClient = new IOSTNodeClient();
+        iostNodeClient.setRestTemplate(restTemplate);
+        iostNodeClient.setIostNodeHost(iostNodeHost);
+
+        String account = "admin";
+        boolean byLongestChain = true;
+
+        CandidateBonus response = iostNodeClient.getCandidateBonus(account, byLongestChain);
+
+        logger.info("getTokenInfo account:{} byLongestChain:{} response:{}", account, byLongestChain, response);
+    }
+
+
+
+    @Test
     public void getTokenInfo() throws Exception {
         IOSTNodeClient iostNodeClient = new IOSTNodeClient();
         iostNodeClient.setRestTemplate(restTemplate);
         iostNodeClient.setIostNodeHost(iostNodeHost);
 
         String token = "iost";
-        boolean complete = true;
+        boolean byLongestChain = true;
 
-        TokenInfo response = iostNodeClient.getTokenInfo(token, complete);
+        TokenInfo response = iostNodeClient.getTokenInfo(token, byLongestChain);
 
-        logger.info("getTokenInfo token:{} complete:{} response:{}", token, complete, response);
+        logger.info("getTokenInfo token:{} byLongestChain:{} response:{}", token, byLongestChain, response);
     }
 }

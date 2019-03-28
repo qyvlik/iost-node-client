@@ -53,6 +53,10 @@ public class IOSTNodeClient {
         this.iostNodeHost = iostNodeHost;
     }
 
+    private String getFullUrl(String path) {
+        return iostNodeHost.endsWith("/") ? iostNodeHost + path : iostNodeHost + "/" + path;
+    }
+
     /**
      * 获得节点的信息
      *
@@ -66,12 +70,7 @@ public class IOSTNodeClient {
             throw new RuntimeException("getNodeInfo failure : restTemplate is null");
         }
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getNodeInfo";
-        } else {
-            url = iostNodeHost + "/getNodeInfo";
-        }
+        String url = getFullUrl("getNodeInfo");
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -95,12 +94,7 @@ public class IOSTNodeClient {
             throw new RuntimeException("getChainInfo failure : restTemplate is null");
         }
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getChainInfo";
-        } else {
-            url = iostNodeHost + "/getChainInfo";
-        }
+        String url = getFullUrl("getChainInfo");
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -124,12 +118,7 @@ public class IOSTNodeClient {
         if (restTemplate == null) {
             throw new RuntimeException("getGasRatio failure : restTemplate is null");
         }
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getGasRatio";
-        } else {
-            url = iostNodeHost + "/getGasRatio";
-        }
+        String url = getFullUrl("getGasRatio");
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -152,12 +141,7 @@ public class IOSTNodeClient {
         if (restTemplate == null) {
             throw new RuntimeException("getRAMInfo failure : restTemplate is null");
         }
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getRAMInfo";
-        } else {
-            url = iostNodeHost + "/getRAMInfo";
-        }
+        String url = getFullUrl("getRAMInfo");
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -185,12 +169,7 @@ public class IOSTNodeClient {
             throw new RuntimeException("getTxByHash failure : hash is empty");
         }
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getTxByHash/" + hash;
-        } else {
-            url = iostNodeHost + "/getTxByHash/" + hash;
-        }
+        String url = getFullUrl("getTxByHash/" + hash);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -218,12 +197,7 @@ public class IOSTNodeClient {
             throw new RuntimeException("getTxReceiptByTxHash failure : hash is empty");
         }
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getTxReceiptByTxHash/" + hash;
-        } else {
-            url = iostNodeHost + "/getTxReceiptByTxHash/" + hash;
-        }
+        String url = getFullUrl("getTxReceiptByTxHash/" + hash);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -252,12 +226,7 @@ public class IOSTNodeClient {
             throw new RuntimeException("getBlockByHash failure : blockHash is empty");
         }
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getBlockByHash/" + blockHash + "/" + complete;
-        } else {
-            url = iostNodeHost + "/getBlockByHash/" + blockHash + "/" + complete;
-        }
+        String url = getFullUrl("getBlockByHash/" + blockHash + "/" + complete);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -286,12 +255,7 @@ public class IOSTNodeClient {
             throw new RuntimeException("getBlockByNumber failure : blockNum must bigger than zero");
         }
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getBlockByNumber/" + blockNum + "/" + complete;
-        } else {
-            url = iostNodeHost + "/getBlockByNumber/" + blockNum + "/" + complete;
-        }
+        String url = getFullUrl("getBlockByNumber/" + blockNum + "/" + complete);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -318,12 +282,7 @@ public class IOSTNodeClient {
             throw new RuntimeException("getAccount failure : account is empty");
         }
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getAccount/" + account + "/" + byLongestChain;
-        } else {
-            url = iostNodeHost + "/getAccount/" + account + "/" + byLongestChain;
-        }
+        String url = getFullUrl("getAccount/" + account + "/" + byLongestChain);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -356,12 +315,7 @@ public class IOSTNodeClient {
             throw new RuntimeException("getTokenBalance failure : token is empty");
         }
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getTokenBalance/" + account + "/" + token + "/" + byLongestChain;
-        } else {
-            url = iostNodeHost + "/getTokenBalance/" + account + "/" + token + "/" + byLongestChain;
-        }
+        String url = getFullUrl("getTokenBalance/" + account + "/" + token + "/" + byLongestChain);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -389,13 +343,8 @@ public class IOSTNodeClient {
         if (StringUtils.isBlank(id)) {
             throw new RuntimeException("getContract failure : id is empty");
         }
+        String url = getFullUrl("getContract/" + id + "/" + byLongestChain);
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getContract/" + id + "/" + byLongestChain;
-        } else {
-            url = iostNodeHost + "/getContract/" + id + "/" + byLongestChain;
-        }
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
             return JSON.parseObject(response.getBody()).toJavaObject(Contract.class);
@@ -425,12 +374,8 @@ public class IOSTNodeClient {
 
         HttpEntity<String> entity = new HttpEntity<>(JSON.toJSONString(request), headers);
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getContractStorage";
-        } else {
-            url = iostNodeHost + "/getContractStorage";
-        }
+        String url = getFullUrl("getContractStorage");
+
         try {
             ResponseEntity<String> response
                     = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
@@ -463,12 +408,8 @@ public class IOSTNodeClient {
 
         HttpEntity<String> entity = new HttpEntity<>(JSON.toJSONString(request), headers);
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getContractStorageFields";
-        } else {
-            url = iostNodeHost + "/getContractStorageFields";
-        }
+        String url = getFullUrl("getContractStorageFields");
+
         try {
             ResponseEntity<String> response
                     = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
@@ -498,12 +439,8 @@ public class IOSTNodeClient {
         if (StringUtils.isBlank(name)) {
             throw new RuntimeException("getCandidateBonus failure : name is empty");
         }
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getCandidateBonus/" + name + "/" + byLongestChain;
-        } else {
-            url = iostNodeHost + "/getCandidateBonus/" + name + "/" + byLongestChain;
-        }
+
+        String url = getFullUrl("getCandidateBonus/" + name + "/" + byLongestChain);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -531,12 +468,8 @@ public class IOSTNodeClient {
         if (StringUtils.isBlank(name)) {
             throw new RuntimeException("getVoterBonus failure : name is empty");
         }
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getVoterBonus/" + name + "/" + byLongestChain;
-        } else {
-            url = iostNodeHost + "/getVoterBonus/" + name + "/" + byLongestChain;
-        }
+
+        String url = getFullUrl("getVoterBonus/" + name + "/" + byLongestChain);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -566,12 +499,7 @@ public class IOSTNodeClient {
             throw new RuntimeException("getTokenInfo failure : token is empty");
         }
 
-        String url = "";
-        if (iostNodeHost.endsWith("/")) {
-            url = iostNodeHost + "getTokenInfo/" + token + "/" + byLongestChain;
-        } else {
-            url = iostNodeHost + "/getTokenInfo/" + token + "/" + byLongestChain;
-        }
+        String url = getFullUrl("getTokenInfo/" + token + "/" + byLongestChain);
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);

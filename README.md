@@ -12,6 +12,25 @@ iost-node-client
 </dependency>
 ```
 
+## example
+
+more examples in the `io.github.qyvlik.iostnode.IOSTNodeClientTest`
+
+```java
+class Tests {
+    @Test
+    public void test() {
+        RestTemplate restTemplate = new RestTemplate();
+        String iostNodeHost = "http://13.52.105.102:30001";         // 测试链, testnet
+        IOSTNodeClient iostNodeClient = new IOSTNodeClient();
+        iostNodeClient.setRestTemplate(restTemplate);
+        iostNodeClient.setIostNodeHost(iostNodeHost);
+        
+        NodeInfo response = iostNodeClient.getNodeInfo();
+    }
+}
+```
+
 ## deploy
 
 ```bash

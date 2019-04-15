@@ -5,8 +5,10 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class GetContractStorageFieldsRequest {
     @JSONField(name = "id")
     private String id;                      // 智能合约的ID
+
     @JSONField(name = "key")
     private String key;                     // StateDB的key
+
     @JSONField(name = "by_longest_chain")
     private Boolean byLongestChain;         // true - 从最长链得到数据，false - 从不可逆块得到数据
 

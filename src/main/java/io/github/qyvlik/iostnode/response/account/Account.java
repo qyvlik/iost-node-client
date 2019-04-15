@@ -1,6 +1,7 @@
 package io.github.qyvlik.iostnode.response.account;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import io.github.qyvlik.iostnode.response.info.RAMInfo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,7 +18,7 @@ public class Account {
     private GasInfo gasInfo;            // Gas信息
 
     @JSONField(name = "ram_info")
-    private Object ramInfo;            // Ram信息
+    private RAMInfo ramInfo;            // Ram信息
 
     @JSONField(name = "permissions")
     private Map<String, Permission> permissions;    // 权限
@@ -56,11 +57,11 @@ public class Account {
         this.gasInfo = gasInfo;
     }
 
-    public Object getRamInfo() {
+    public RAMInfo getRamInfo() {
         return ramInfo;
     }
 
-    public void setRamInfo(Object ramInfo) {
+    public void setRamInfo(RAMInfo ramInfo) {
         this.ramInfo = ramInfo;
     }
 

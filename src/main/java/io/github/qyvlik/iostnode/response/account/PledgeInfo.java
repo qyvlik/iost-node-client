@@ -8,7 +8,6 @@ public class PledgeInfo {
     @JSONField(name = "pledger")
     private String pledger;             // 接受本账号质押的账号
 
-
     @JSONField(name = "amount")
     private BigDecimal amount;          // 本账号给 pledger 质押的金额
 

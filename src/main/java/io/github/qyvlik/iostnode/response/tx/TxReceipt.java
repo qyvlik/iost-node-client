@@ -25,7 +25,7 @@ public class TxReceipt {
     private List<String> returns;          // 每个Action的返回值
 
     @JSONField(name = "receipts")
-    private List<TReceipt> receipts;    // event功能使用
+    private List<Receipt> receipts;         // event功能使用
 
 
     public String getTxHash() {
@@ -76,11 +76,11 @@ public class TxReceipt {
         this.returns = returns;
     }
 
-    public List<TReceipt> getReceipts() {
+    public List<Receipt> getReceipts() {
         return receipts;
     }
 
-    public void setReceipts(List<TReceipt> receipts) {
+    public void setReceipts(List<Receipt> receipts) {
         this.receipts = receipts;
     }
 

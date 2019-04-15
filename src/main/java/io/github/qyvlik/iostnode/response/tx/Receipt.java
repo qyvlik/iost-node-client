@@ -2,7 +2,7 @@ package io.github.qyvlik.iostnode.response.tx;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class TReceipt {
+public class Receipt {
     @JSONField(name = "func_name")
     private String funcName;            // abi函数的名字
     @JSONField(name = "content")
@@ -27,7 +27,7 @@ public class TReceipt {
 
     @Override
     public String toString() {
-        return "TReceipt{" +
+        return "Receipt{" +
                 "funcName='" + funcName + '\'' +
                 ", content='" + content + '\'' +
                 '}';

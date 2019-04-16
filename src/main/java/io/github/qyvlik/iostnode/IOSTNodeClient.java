@@ -134,7 +134,7 @@ public class IOSTNodeClient {
      *
      * @return RAMInfo
      */
-    public RAMInfo getRAMInfo() {
+    public RAMInfoDetail getRAMInfo() {
         if (StringUtils.isBlank(iostNodeHost)) {
             throw new RuntimeException("getRAMInfo failure : iostNodeHost is empty");
         }
@@ -145,7 +145,7 @@ public class IOSTNodeClient {
 
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            return JSON.parseObject(response.getBody()).toJavaObject(RAMInfo.class);
+            return JSON.parseObject(response.getBody()).toJavaObject(RAMInfoDetail.class);
         } catch (Exception e) {
             logger.error("getRAMInfo failure :{} ", e.getMessage());
         }

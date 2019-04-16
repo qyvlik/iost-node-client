@@ -83,7 +83,7 @@ public class IOSTNodeClientTest {
         iostNodeClient.setRestTemplate(restTemplate);
         iostNodeClient.setIostNodeHost(iostNodeHost);
 
-        RAMInfo response = iostNodeClient.getRAMInfo();
+        RAMInfoDetail response = iostNodeClient.getRAMInfo();
 
         logger.info("getRAMInfo response:{}", response);
     }

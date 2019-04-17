@@ -6,6 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 public class TxReceipt {
+
+    public static final String TX_RECEIPT_STATUS_CODE_SUCCESS = "SUCCESS";                              // 成功
+    public static final String TX_RECEIPT_STATUS_CODE_GAS_RUN_OUT = "GAS_RUN_OUT";                      //  Gas不足
+    public static final String TX_RECEIPT_STATUS_CODE_BALANCE_NOT_ENOUGH = "BALANCE_NOT_ENOUGH";        // 余额不足
+    public static final String TX_RECEIPT_STATUS_CODE_WRONG_PARAMETER = "WRONG_PARAMETER";              // 错误参数
+    public static final String TX_RECEIPT_STATUS_CODE_RUNTIME_ERROR = "RUNTIME_ERROR";                  // 运行时错误
+    public static final String TX_RECEIPT_STATUS_CODE_TIMEOUT = "TIMEOUT";                              // 超时
+    public static final String TX_RECEIPT_STATUS_CODE_WRONG_TX_FORMAT = "WRONG_TX_FORMAT";              // 交易格式错误
+    public static final String TX_RECEIPT_STATUS_CODE_WRONG_DUPLICATE_SET_CODE = "DUPLICATE_SET_CODE";  // 重复设置set code
+    public static final String TX_RECEIPT_STATUS_CODE_WRONG_UNKNOWN_ERROR = "UNKNOWN_ERROR";            // 未知错误
+
     @JSONField(name = "tx_hash")
     private String txHash;                 // 交易的hash
 

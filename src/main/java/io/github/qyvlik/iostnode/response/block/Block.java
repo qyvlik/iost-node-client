@@ -3,8 +3,12 @@ package io.github.qyvlik.iostnode.response.block;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class Block {
+
+    public static final String BLOCK_STATUS_PENDING = "PENDING";               // block在缓存中
+    public static final String BLOCK_STATUS_IRREVERSIBLE = "IRREVERSIBLE";     // block不可逆
+
     @JSONField(name = "status")
-    private String status;              // PENDIND - block在缓存中，IRREVERSIBLE - block不可逆
+    private String status;
 
     @JSONField(name = "block")
     private BlockDetail block;            // block结构体

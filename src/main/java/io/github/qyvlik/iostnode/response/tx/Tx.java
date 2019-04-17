@@ -3,6 +3,10 @@ package io.github.qyvlik.iostnode.response.tx;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class Tx {
+    public static final String TX_STATUS_PENDING = "PENDING";               // 交易在缓存中
+    public static final String TX_STATUS_PACKED = "PACKED";                 // 交易在非不可逆块中
+    public static final String TX_STATUS_IRREVERSIBLE = "IRREVERSIBLE";     // 交易在不可逆的块中
+
     @JSONField(name = "status")
     private String status;
 
